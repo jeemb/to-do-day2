@@ -8,6 +8,7 @@ class Task
         private $date_id;
         private $date;
         private $id;
+        private $covey_score;
 
         function __construct($description, $category_id, $importance, $date_id, $id = null)
         {
@@ -31,6 +32,11 @@ class Task
         function getId()
         {
             return $this->id;
+        }
+
+        function getCoveyScore()
+        {
+            return $this->covey_score;
         }
 
         function getCategory()
@@ -68,6 +74,31 @@ class Task
             $this->date = $date;
         }
 
+        function setCoveyScore($score)
+        {
+            $this->covey_score = $score;
+        }
+
+        function rank()
+        {
+            //figure out covey score
+            $rank = 0;
+            $today = date("Y-m-d", strtotime('+7 days'));
+            if ($this->getImportance() == 1 && $this->getDate() < $today){
+                $rank = 1;
+            }
+            if ($this->getImportance() == 1 && $this->getDate() >= $today){
+                $rank = 2;
+            }
+            if ($this->getImportance() == 2 && $this->getDate() < $today){
+                $rank = 3;
+            }
+            if ($this->getImportance() == 2 && $this->getDate() >= $today){
+                $rank = 4;
+            }
+            $this->setCoveyScore($rank);
+        }
+
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO tasks (description, category_id, importance, date_id) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}, {$this->getImportance()}, {$this->getDateId()})");
@@ -89,6 +120,7 @@ class Task
                 $new_task = new Task($description, $category_id, $importance, $date_id, $id);
                 $new_task->setDate($date);
                 $new_task->setCategory($category);
+                $new_task->rank();
                 array_push($tasks, $new_task);
             }
             return $tasks;
