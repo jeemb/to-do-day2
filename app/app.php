@@ -19,7 +19,7 @@
     ));
 
     $app->get("/", function() use ($app) {
-    return $app['twig']->render('index.html.twig', array('categories' => Task::getAll()));
+    return $app['twig']->render('index.html.twig', array('tasks' => Task::getAll()));
     });
 
     $app->post("/add_task", function() use ($app) {

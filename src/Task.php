@@ -3,8 +3,10 @@ class Task
     {
         private $description;
         private $category_id;
+        private $category;
         private $importance;
         private $date_id;
+        private $date;
         private $id;
 
         function __construct($description, $category_id, $importance, $date_id, $id = null)
@@ -31,6 +33,16 @@ class Task
             return $this->id;
         }
 
+        function getCategory()
+        {
+            return $this->category;
+        }
+
+        function getDate()
+        {
+            return $this->date;
+        }
+
         function getCategoryId()
         {
             return $this->category_id;
@@ -46,6 +58,16 @@ class Task
             return $this->date_id;
         }
 
+        function setCategory($category)
+        {
+            $this->category = $category;
+        }
+
+        function setDate($date)
+        {
+            $this->date = $date;
+        }
+
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO tasks (description, category_id, importance, date_id) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}, {$this->getImportance()}, {$this->getDateId()})");
@@ -54,7 +76,7 @@ class Task
 
         static function getAll()
         {
-            $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks;");
+            $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks JOIN categories ON tasks.category_id = categories.id JOIN dates on tasks.date_id = dates.id;");
             $tasks = array();
             foreach($returned_tasks as $task) {
                 $description = $task['description'];
@@ -62,7 +84,11 @@ class Task
                 $category_id = $task['category_id'];
                 $importance = intval($task['importance']);
                 $date_id = $task['date_id'];
+                $date = $task['date'];
+                $category = $task['name'];
                 $new_task = new Task($description, $category_id, $importance, $date_id, $id);
+                $new_task->setDate($date);
+                $new_task->setCategory($category);
                 array_push($tasks, $new_task);
             }
             return $tasks;

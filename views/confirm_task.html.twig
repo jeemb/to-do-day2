@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
     <title>To Do List</title>
 </head>
 <body>
@@ -21,11 +22,11 @@
                     </p>
                     <p>
                         <!-- Change to actual date later -->
-                        Due Date: {{ task.getDateId }}
+                        Due Date: {{ task.getDate }}
                     </p>
                     <p>
                         <!-- Change to actual category later -->
-                        Category: {{ task.getCategoryId}}
+                        Category: {{ task.getCategory}}
                     </p>
                 </div>
             </div>
@@ -33,6 +34,6 @@
 
     {% endfor %}
 
-    <p><a href='/'>View your list of things to do.</a></p>
+    <p><a href='/'>Main Page</a></p>
 </body>
 </html>
