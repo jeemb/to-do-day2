@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>You created a task!</h1>
+    {% for task in tasks %}
+        <div class="col-sm-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="panel-title">{{ task.getDescription }}</h2>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        Importance:
+                        {% if task.getImportance == 1 %}
+                            Important
+                        {% else %}
+                            Not Important
+                        {% endif %}
+                    </p>
+                    <p>
+                        <!-- Change to actual date later -->
+                        Due Date: {{ task.getDateId }}
+                    </p>
+                    <p>
+                        <!-- Change to actual category later -->
+                        Category: {{ task.getCategoryId}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <p><a href='/'>View your list of things to do.</a></p>
+</body>
+</html>
