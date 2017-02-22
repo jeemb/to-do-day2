@@ -28,4 +28,4 @@ php
 composer
 silex
 twig
-mysql ## License MIT Commons Copyright (c) 2017 David Quisenberry and Ash Laidlaw
+mysql ## License MIT Commons Copyright (c) 2017 David Quisenberry and Jennifer Beem
