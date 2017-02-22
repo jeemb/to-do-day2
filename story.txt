@@ -1,0 +1,12 @@
+Story Overcoming Difficulty
+
+Situation:
+Debugging tests for covey time management app.  spent around an hour debugging failing unit tests.  
+
+Process:
+We thought it was an issue of our database not being properly connected as our getTasks would return null showing no information from our database.  We went through our all our classes and php files to check for punctuation and spelling.  We checked that our sql server was up and running.  We checked how we created objects and saved them which was the method for inputting into the database.
+
+Solution: 
+After much sleuthing we noticed that we needed to pass a null id to the task constructor which fixed all of it!
+
+Sanity remained.  Teamwork remained.  Debugging!
